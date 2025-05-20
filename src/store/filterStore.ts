@@ -1,13 +1,26 @@
 import { create } from 'zustand'
-
 import { SearchRequestFilter } from '../shared/api/types/SearchRequest/SearchRequestFilter'
 
 interface FilterState {
-	selectedFilters: SearchRequestFilter
-	setFilters: (filters: SearchRequestFilter) => void
+	selectedFilters: SearchRequestFilter,
+	temporaryFilters: SearchRequestFilter,
+	setTemporaryFilters: (filters: SearchRequestFilter) => void,
+	applyFilters: () => void,
+	cancelFilters: () => void,
 }
 
-export const useFilterStore = create<FilterState>(set => ({
+export const useFilterStore = create<FilterState>((set, get) => ({
 	selectedFilters: [],
-	setFilters: filters => set({ selectedFilters: filters })
-}))
+	temporaryFilters: [],
+	setTemporaryFilters: filters => set({ temporaryFilters: filters }),
+	applyFilters: () => {
+		set({
+			selectedFilters: get().temporaryFilters
+		})
+	},
+	cancelFilters: () => {
+		set({
+			temporaryFilters: get().selectedFilters
+		})
+	}
+}));
