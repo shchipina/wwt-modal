@@ -96,7 +96,7 @@ const FilterModal: React.FC<Props> = ({ onClose }) => {
           <CloseButton onClose={handleClose} />
         </div>
 
-        {filters.map(filter => (
+        {filters?.map(filter => (
           <FilterGroup
             key={filter.id}
             group={filter}
