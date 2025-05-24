@@ -1,5 +1,5 @@
 import filter from './filter.json'
 
 export const ua = {
-	...filter,
+	...filter
 } as const
